@@ -1,0 +1,2 @@
+!function(){console.log("start load cache");var o,e,c,n,a=Date.now();o=3e3,c=e=1e3,n=0,setTimeout((function(){var t=setInterval((function(){1===(n+=1)&&(e=o),n>=3&&clearInterval(t),function(o,e){Math.random()>.3?console.log("✅ Fulfilled promise ".concat(o," in ").concat(e,"ms")):console.log("❌ Rejected promise ".concat(o," in ").concat(e,"ms"))}(n,o),o+=c;var l=Date.now();console.log("cache load ok executed in",(l-a)/1e3)}),e),l=Date.now();console.log("cache load1 ok executed in",(l-a)/1e3)}),o)}();
+//# sourceMappingURL=03-promises.c7c7fcd4.js.map
