@@ -3,11 +3,13 @@ const form = document.querySelector('.form');
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
-    if (shouldResolve) {
-      resolve(position, delay);
+  setTimeout(function time() {
+      if (shouldResolve) {
+        resolve({ position, delay });
     } else {
-      reject(position, delay);
+        reject({ position, delay });
     }
+  }, delay);
   });
 }
 form.addEventListener('submit', event => {
@@ -17,32 +19,23 @@ form.addEventListener('submit', event => {
   const stringAmount = event.currentTarget.elements.amount.value;
   let delay = Number(stringDelay);
   let step = Number(stringStep);
-  const stepLogged = step;
   const amount = Number(stringAmount);
-  let position = 0;
   console.log('start load cache');
   const before = Date.now();
-  setTimeout(function time() {
-    const intervalId = setInterval(function () {
-      position += 1;
-      if (position === 1) {
-        step = delay;
-      }
-      if (position >= amount) {
-        clearInterval(intervalId);
-      }
+  for (let position = 1; position <= amount; position += 1) {
+    if (position > 1) {
+      delay += step;
+      } 
       createPromise(position, delay)
         .then(({ position, delay }) => {
           Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-        })
+          const after = Date.now();
+          console.log('cache load ok executed in', (after - before) / 1000);
+      })
         .catch(({ position, delay }) => {
           Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+          const after1 = Date.now();
+          console.log('cache load1 ok executed in', (after1 - before) / 1000);
         });
-      delay += stepLogged;
-      const after = Date.now();
-      console.log('cache load ok executed in', (after - before) / 1000);
-    }, step);
-    const after1 = Date.now();
-    console.log('cache load1 ok executed in', (after1 - before) / 1000);
-  }, delay);
+      }
 });
