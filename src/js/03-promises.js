@@ -1,3 +1,4 @@
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const form = document.querySelector('.form');
 const input = document.querySelector('input[name="amount"]');
 function createPromise(position, delay) {
@@ -33,10 +34,10 @@ form.addEventListener('submit', event => {
       }
       createPromise(position, delay)
         .then(({ position, delay }) => {
-          console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+          Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
         })
         .catch(({ position, delay }) => {
-          console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+          Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
         });
       delay += stepLogged;
       const after = Date.now();
