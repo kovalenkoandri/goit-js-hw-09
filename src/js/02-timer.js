@@ -16,25 +16,25 @@ flatpickr(refs.input, {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-      if (selectedDates[0] < Date.now())
-        Notify.failure('Please choose a date in the future');
+    if (selectedDates[0] < Date.now())
+      Notify.failure('Please choose a date in the future');
     //   window.alert('Please choose a date in the future');
     else {
       refs.btnStart.disabled = false;
+      refs.input.disabled = true;
       refs.btnStart.addEventListener('click', () => {
         const timerId = setInterval(() => {
           const obj = convertMs(selectedDates[0] - Date.now());
+          const delta = selectedDates[0] - Date.now();
           refs.days.textContent = addLeadingZero(obj.days);
           refs.hours.textContent = addLeadingZero(obj.hours);
           refs.minutes.textContent = addLeadingZero(obj.minutes);
           refs.seconds.textContent = addLeadingZero(obj.seconds);
           if (
-            obj.days === 0 &&
-            obj.hours === 0 &&
-            obj.minutes === 0 &&
-            obj.seconds === 0
+            delta <= 1000
           ) {
             clearInterval(timerId);
+            refs.btnStart.disabled = true;
           }
         }, 1000);
       });
