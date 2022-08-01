@@ -1,2 +1,0 @@
-console.log("start load cache");const e=Date.now();!function(){let o=3e3,n=1e3;const t=n;let c=0;setTimeout((function(){const l=setInterval((function(){c+=1,1===c&&(n=o),c>=3&&clearInterval(l),function(e,o){Math.random()>.3?console.log(`✅ Fulfilled promise ${e} in ${o}ms`):console.log(`❌ Rejected promise ${e} in ${o}ms`)}(c,o),o+=t;const s=Date.now();console.log("cache load ok executed in",(s-e)/1e3)}),n),s=Date.now();console.log("cache load1 ok executed in",(s-e)/1e3)}),o)}();
-//# sourceMappingURL=03-promises.8cf3a9b8.js.map
