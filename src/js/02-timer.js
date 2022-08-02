@@ -24,6 +24,7 @@ flatpickr(refs.input, {
       refs.input.disabled = true;
       refs.btnStart.addEventListener('click', () => {
         const timerId = setInterval(() => {
+          refs.btnStart.disabled = true;
           const obj = convertMs(selectedDates[0] - Date.now());
           const delta = selectedDates[0] - Date.now();
           refs.days.textContent = addLeadingZero(obj.days);
@@ -34,7 +35,6 @@ flatpickr(refs.input, {
             delta <= 1000
           ) {
             clearInterval(timerId);
-            refs.btnStart.disabled = true;
           }
         }, 1000);
       });
